@@ -25,6 +25,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
         }
     }
     
+    var repliques : [(String, Data)]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initList()
@@ -48,13 +50,12 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let replique = self.data![indexPath.row] as! [String: String];
         let file = replique["file"]!;
-        print(file);
+        
         let link = "\(self.service)/\(file)"
         let url = URL(string: link)
         let request = URLRequest(url: url!)
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, resp, err) in
-            
             Player.shared.playSound(data!)
         }
         task.resume()
