@@ -135,6 +135,37 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
         searchBar.text = nil
         self.data = self.dataFull
     }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch(selectedScope) {
+        case 0:
+            // Titre
+            self.data = self.data?.sorted(by: {
+                let d = $0 as! [String : String]
+                let d1 = $1 as! [String : String]
+                return d["title"]! < d1["title"]!
+            })
+            break
+        case 1:
+            // Personnage
+            self.data = self.data?.sorted(by: {
+                let d = $0 as! [String : String]
+                let d1 = $1 as! [String : String]
+                return d["character"]! < d1["character"]!
+            })
+            break
+        case 2:
+            // Episode
+            self.data = self.data?.sorted(by: {
+                let d = $0 as! [String : String]
+                let d1 = $1 as! [String : String]
+                return d["episode"]! < d1["episode"]!
+            })
+            break
+        default:
+            break
+        }
+    }
 
 }
 
